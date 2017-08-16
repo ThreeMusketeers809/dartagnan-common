@@ -5,4 +5,4 @@
  * @author amin
  *
  */
-package src.core;
+package core;
