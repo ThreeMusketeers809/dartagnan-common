@@ -109,7 +109,7 @@ public class PhoneNumber {
 	 *            String.
 	 */
 	@XmlElement
-	public void setPhoneType(String type) {
+	public void setType(String type) {
 		this.type = Type.valueOf(type);
 	}
 
