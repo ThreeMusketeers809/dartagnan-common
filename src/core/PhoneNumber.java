@@ -1,6 +1,9 @@
 package core;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import java.util.Objects;
+
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -119,5 +122,26 @@ public class PhoneNumber {
 	 */
 	public Type getType() {
 		return type;
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		if (object == null) {
+			return false;
+		} else if (!(object instanceof PhoneNumber)) {
+			return false;
+		} else {
+			PhoneNumber pn = (PhoneNumber) object;
+			if (id == pn.getId() && Objects.equals(phoneNumber, pn.getPhoneNumber())
+					&& Objects.equals(type, pn.getType())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, phoneNumber, type);
 	}
 }

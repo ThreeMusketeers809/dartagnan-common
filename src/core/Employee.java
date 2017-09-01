@@ -1,6 +1,8 @@
 package core;
 
 import java.util.List;
+import java.util.Objects;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -280,5 +282,25 @@ public class Employee {
 	 */
 	public List<PhoneNumber> getPhoneNumbers() {
 		return phoneNumbers;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object == null) {
+			return false;
+		} else if (!(object instanceof Employee)) {
+			return false;
+		} else {
+			Employee e = (Employee) object;
+			if (id == e.getId() && Objects.equals(cedula, e.getCedula())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, cedula);
 	}
 }
