@@ -3,7 +3,6 @@ package core;
 import java.util.List;
 import java.util.Objects;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -116,7 +115,6 @@ public class Employee {
 	 * @param id
 	 *            This Employee's database PRIMARY KEY id.
 	 */
-	@XmlElement
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -134,7 +132,6 @@ public class Employee {
 	 * @param firstName
 	 *            This Employee's first name.
 	 */
-	@XmlElement
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -152,7 +149,6 @@ public class Employee {
 	 * @param middleName
 	 *            This Employee's middle name.
 	 */
-	@XmlElement
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
@@ -171,7 +167,6 @@ public class Employee {
 	 *            This Employee's first surname, last name, family name or
 	 *            equivalent.
 	 */
-	@XmlElement
 	public void setFirstSurname(String firstSurname) {
 		this.firstSurname = firstSurname;
 	}
@@ -190,7 +185,6 @@ public class Employee {
 	 *            This Employee's second surname, last name, family name or
 	 *            equivalent.
 	 */
-	@XmlElement
 	public void setSecondSurname(String secondSurname) {
 		this.secondSurname = secondSurname;
 	}
@@ -208,7 +202,6 @@ public class Employee {
 	 * @param cedula
 	 *            This Employee's government issued ID document.
 	 */
-	@XmlElement
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
@@ -226,7 +219,6 @@ public class Employee {
 	 * @param email
 	 *            This Employee's e-mail address.
 	 */
-	@XmlElement
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -253,7 +245,6 @@ public class Employee {
 	 * @param role
 	 *            This Employee's system role formatted as a String.
 	 */
-	@XmlElement
 	public void setRole(String role) {
 		this.role = Role.valueOf(role);
 	}
@@ -271,7 +262,6 @@ public class Employee {
 	 * @param phoneNumbers
 	 *            A list of phone numbers associated with this Employee.
 	 */
-	@XmlElement
 	public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
 		this.phoneNumbers = phoneNumbers;
 	}
@@ -292,15 +282,12 @@ public class Employee {
 			return false;
 		} else {
 			Employee e = (Employee) object;
-			if (id == e.getId() && Objects.equals(cedula, e.getCedula())) {
-				return true;
-			}
+			return getId() == e.getId() && Objects.equals(getCedula(), e.getCedula());
 		}
-		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, cedula);
+		return Objects.hash(getId(), getCedula());
 	}
 }

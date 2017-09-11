@@ -4,8 +4,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import java.util.Objects;
 
-import javax.xml.bind.annotation.XmlElement;
-
 /**
  * 
  * This class provides an uniform representation for Phone Numbers.
@@ -23,12 +21,7 @@ public class PhoneNumber {
 	 * Type of phone number represented.
 	 */
 	public enum Type {
-		HOME,
-		WORK,
-		MOBILE,
-		FAX,
-		VOIP,
-		OTHER;
+		HOME, WORK, MOBILE, FAX, VOIP, OTHER;
 	};
 
 	private int id;
@@ -50,8 +43,8 @@ public class PhoneNumber {
 	 * @param phoneNumber
 	 *            A String representation of the digits composing this PhoneNumber.
 	 * @param type
-	 *            The type of PhoneNumber the object represents as a
-	 *            {@link Type} element.
+	 *            The type of PhoneNumber the object represents as a {@link Type}
+	 *            element.
 	 */
 	public PhoneNumber(int id, String phoneNumber, Type type) {
 		setId(id);
@@ -64,7 +57,6 @@ public class PhoneNumber {
 	 * @param id
 	 *            This PhoneNumber's database PRIMARY KEY id.
 	 */
-	@XmlElement
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -82,7 +74,6 @@ public class PhoneNumber {
 	 * @param phoneNumber
 	 *            A String representation of the digits composing this PhoneNumber.
 	 */
-	@XmlElement
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
@@ -111,7 +102,6 @@ public class PhoneNumber {
 	 *            The type of PhoneNumber the object represents formatted as a
 	 *            String.
 	 */
-	@XmlElement
 	public void setType(String type) {
 		this.type = Type.valueOf(type);
 	}
@@ -123,7 +113,7 @@ public class PhoneNumber {
 	public Type getType() {
 		return type;
 	}
-	
+
 	@Override
 	public boolean equals(Object object) {
 		if (object == null) {
@@ -132,16 +122,12 @@ public class PhoneNumber {
 			return false;
 		} else {
 			PhoneNumber pn = (PhoneNumber) object;
-			if (id == pn.getId() && Objects.equals(phoneNumber, pn.getPhoneNumber())
-					&& Objects.equals(type, pn.getType())) {
-				return true;
-			}
+			return getId() == pn.getId() && Objects.equals(getPhoneNumber(), pn.getPhoneNumber());
 		}
-		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, phoneNumber, type);
+		return Objects.hash(getId(), getPhoneNumber(), getType());
 	}
 }

@@ -62,8 +62,8 @@ public class PropertyLoader {
 				}
 			}
 		} else {
-			System.err.printf("Couldn not open: %s", propertiesNamespace);
-			System.err.println(System.getProperty("java.class.path"));
+			System.err.printf("Couldn not open: %s.\n", propertiesNamespace);
+			System.err.printf("CLASSPATH=%s\n", System.getProperty("java.class.path"));
 		}
 	}
 
