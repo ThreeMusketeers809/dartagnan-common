@@ -25,7 +25,7 @@ public class Student {
 		ACTIVE, INACTIVE, SUSPENDED
 	};
 
-	private int id;
+	private String uuid;
 	private String studentId;
 	private String firstName;
 	private String middleName;
@@ -48,8 +48,6 @@ public class Student {
 	 * 
 	 * Constructor.
 	 * 
-	 * @param id
-	 *            This Student's database PRIMARY KEY id.
 	 * @param studentId
 	 *            This Student's school-assigned ID number.
 	 * @param firstName
@@ -69,15 +67,61 @@ public class Student {
 	 * @param address
 	 *            This Student's mailing address.
 	 * @param status
-	 *            The status of this Student within the system as a {@link Status}
+	 *            The status of this Student within the system as a {@link #core.Student.Status}
 	 *            element.
 	 * @param phoneNumbers
 	 *            A list of phone numbers associated with this Student.
 	 */
-	public Student(int id, String studentId, String firstName, String middleName, String firstSurname,
+	public Student(String studentId, String firstName, String middleName, String firstSurname,
 			String secondSurname, String cedula, String email, String address, Status status,
 			List<PhoneNumber> phoneNumbers) {
-		setId(id);
+		setUuid(null);
+		setStudentId(studentId);
+		setFirstName(firstName);
+		setMiddleName(middleName);
+		setFirstSurname(firstSurname);
+		setSecondSurname(secondSurname);
+		setCedula(cedula);
+		setEmail(email);
+		setAddress(address);
+		setStatus(status);
+		setPhoneNumbers(phoneNumbers);
+	}
+	
+	/**
+	 * 
+	 * Constructor.
+	 * 
+	 * @param uuid
+	 *            This Student's database UUID.
+	 * @param studentId
+	 *            This Student's school-assigned ID number.
+	 * @param firstName
+	 *            This Student's first name.
+	 * @param middleName
+	 *            This Student's middle name.
+	 * @param firstSurname
+	 *            This Student's first surname, last name, family name or
+	 *            equivalent.
+	 * @param secondSurname
+	 *            This Student's second surname, last name, family name or
+	 *            equivalent.
+	 * @param cedula
+	 *            This Student's government issued ID document.
+	 * @param email
+	 *            This Student's e-mail address.
+	 * @param address
+	 *            This Student's mailing address.
+	 * @param status
+	 *            The status of this Student within the system as a {@link #core.Student.Status}
+	 *            element.
+	 * @param phoneNumbers
+	 *            A list of phone numbers associated with this Student.
+	 */
+	public Student(String uuid, String studentId, String firstName, String middleName, String firstSurname,
+			String secondSurname, String cedula, String email, String address, Status status,
+			List<PhoneNumber> phoneNumbers) {
+		setUuid(uuid);
 		setStudentId(studentId);
 		setFirstName(firstName);
 		setMiddleName(middleName);
@@ -92,19 +136,19 @@ public class Student {
 
 	/**
 	 * 
-	 * @param id
-	 *            This Student's database PRIMARY KEY id.
+	 * @param uuid
+	 *            This Student's database UUID.
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/**
 	 * 
-	 * @return This Student's database PRIMARY KEY id.
+	 * @return This Student's database UUID.
 	 */
-	public int getId() {
-		return id;
+	public String getUuid() {
+		return uuid;
 	}
 
 	/**
@@ -248,7 +292,7 @@ public class Student {
 	/**
 	 * 
 	 * @param status
-	 *            The status of this Student within the system as a {@link Status}
+	 *            The status of this Student within the system as a {@link #core.Student.Status}
 	 *            element.
 	 */
 	public void setStatus(Status status) {
@@ -289,6 +333,9 @@ public class Student {
 		return phoneNumbers;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object object) {
 		if (object == null) {
@@ -297,13 +344,16 @@ public class Student {
 			return false;
 		} else {
 			Student s = (Student) object;
-			return getId() == s.getId() && Objects.equals(getStudentId(), s.getStudentId())
+			return Objects.equals(getUuid(), s.getUuid()) && Objects.equals(getStudentId(), s.getStudentId())
 					&& Objects.equals(getCedula(), s.getCedula());
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId(), getStudentId(), getCedula());
+		return Objects.hash(getUuid(), getStudentId(), getCedula());
 	}
 }

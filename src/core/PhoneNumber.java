@@ -24,7 +24,7 @@ public class PhoneNumber {
 		HOME, WORK, MOBILE, FAX, VOIP, OTHER;
 	};
 
-	private int id;
+	private String uuid;
 	private String phoneNumber;
 	private Type type;
 
@@ -32,41 +32,60 @@ public class PhoneNumber {
 	 * Constructor.
 	 */
 	public PhoneNumber() {
+		setUuid(null);
 	}
 
 	/**
 	 * 
 	 * Constructor.
 	 * 
-	 * @param id
-	 *            This PhoneNumber's database PRIMARY KEY id.
+	 * @param uuid
+	 *            This PhoneNumber's database UUID.
 	 * @param phoneNumber
 	 *            A String representation of the digits composing this PhoneNumber.
 	 * @param type
-	 *            The type of PhoneNumber the object represents as a {@link Type}
-	 *            element.
+	 *            The type of PhoneNumber the object represents as a
+	 *            {@link #core.PhoneNumber.Type} element.
 	 */
-	public PhoneNumber(int id, String phoneNumber, Type type) {
-		setId(id);
+	public PhoneNumber(String phoneNumber, Type type) {
+		setUuid(null);
 		setPhoneNumber(phoneNumber);
 		setType(type);
 	}
 
 	/**
 	 * 
-	 * @param id
-	 *            This PhoneNumber's database PRIMARY KEY id.
+	 * Constructor.
+	 * 
+	 * @param uuid
+	 *            This PhoneNumber's database UUID.
+	 * @param phoneNumber
+	 *            A String representation of the digits composing this PhoneNumber.
+	 * @param type
+	 *            The type of PhoneNumber the object represents as a
+	 *            {@link #core.PhoneNumber.Type} element.
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public PhoneNumber(String uuid, String phoneNumber, Type type) {
+		setUuid(uuid);
+		setPhoneNumber(phoneNumber);
+		setType(type);
 	}
 
 	/**
 	 * 
-	 * @return This PhoneNumber's database PRIMARY KEY id.
+	 * @param uuid
+	 *            This PhoneNumber's database UUID.
 	 */
-	public int getId() {
-		return id;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	/**
+	 * 
+	 * @return This PhoneNumber's database UUID.
+	 */
+	public String getUuid() {
+		return uuid;
 	}
 
 	/**
@@ -89,7 +108,7 @@ public class PhoneNumber {
 	/**
 	 * 
 	 * @param type
-	 *            The type of PhoneNumber the object represents as a {@link Type}
+	 *            The type of PhoneNumber the object represents as a {@link #core.PhoneNumber.Type}
 	 *            element.
 	 */
 	public void setType(Type type) {
@@ -114,6 +133,11 @@ public class PhoneNumber {
 		return type;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object object) {
 		if (object == null) {
@@ -122,12 +146,17 @@ public class PhoneNumber {
 			return false;
 		} else {
 			PhoneNumber pn = (PhoneNumber) object;
-			return getId() == pn.getId() && Objects.equals(getPhoneNumber(), pn.getPhoneNumber());
+			return Objects.equals(getUuid(), pn.getUuid()) && Objects.equals(getPhoneNumber(), pn.getPhoneNumber());
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId(), getPhoneNumber(), getType());
+		return Objects.hash(getUuid(), getPhoneNumber(), getType());
 	}
 }

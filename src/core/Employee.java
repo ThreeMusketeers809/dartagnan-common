@@ -55,7 +55,7 @@ public class Employee {
 		UNDEFINED
 	};
 
-	private int id;
+	private String uuid;
 	private String firstName;
 	private String middleName;
 	private String firstSurname;
@@ -71,13 +71,11 @@ public class Employee {
 	 */
 	public Employee() {
 	}
-
+	
 	/**
 	 * 
 	 * Constructor.
 	 * 
-	 * @param id
-	 *            This Employee's database PRIMARY KEY id.
 	 * @param firstName
 	 *            This Employee's first name.
 	 * @param middleName
@@ -93,13 +91,13 @@ public class Employee {
 	 * @param email
 	 *            This Employee's e-mail address.
 	 * @param role
-	 *            This Employee's system role as a {@link Role} element.
+	 *            This Employee's system role as a {@link #core.Employee.Role} element.
 	 * @param phoneNumbers
 	 *            A list of phone numbers associated with this Employee.
 	 */
-	public Employee(int id, String firstName, String middleName, String firstSurname, String secondSurname,
-			String cedula, String email, Role role, List<PhoneNumber> phoneNumbers) {
-		setId(id);
+	public Employee(String firstName, String middleName, String firstSurname, String secondSurname, String cedula,
+			String email, Role role, List<PhoneNumber> phoneNumbers) {
+		setUuid(null);
 		setFirstName(firstName);
 		setMiddleName(middleName);
 		setFirstSurname(firstSurname);
@@ -112,19 +110,57 @@ public class Employee {
 
 	/**
 	 * 
-	 * @param id
-	 *            This Employee's database PRIMARY KEY id.
+	 * Constructor.
+	 * 
+	 * @param uuid
+	 *            This Employee's database UUID.
+	 * @param firstName
+	 *            This Employee's first name.
+	 * @param middleName
+	 *            This Employee's middle name.
+	 * @param firstSurname
+	 *            This Employee's first surname, last name, family name or
+	 *            equivalent.
+	 * @param secondSurname
+	 *            This Employee's second surname, last name, family name or
+	 *            equivalent.
+	 * @param cedula
+	 *            This Employee's government issued ID document.
+	 * @param email
+	 *            This Employee's e-mail address.
+	 * @param role
+	 *            This Employee's system role as a {@link #core.Employee.Role} element.
+	 * @param phoneNumbers
+	 *            A list of phone numbers associated with this Employee.
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public Employee(String uuid, String firstName, String middleName, String firstSurname, String secondSurname,
+			String cedula, String email, Role role, List<PhoneNumber> phoneNumbers) {
+		setUuid(uuid);
+		setFirstName(firstName);
+		setMiddleName(middleName);
+		setFirstSurname(firstSurname);
+		setSecondSurname(secondSurname);
+		setCedula(cedula);
+		setEmail(email);
+		setRole(role);
+		setPhoneNumbers(phoneNumbers);
 	}
 
 	/**
 	 * 
-	 * @return This Employee's database PRIMARY KEY id.
+	 * @param uuid
+	 *            This Employee's database UUID.
 	 */
-	public int getId() {
-		return id;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	/**
+	 * 
+	 * @return This Employee's database UUID.
+	 */
+	public String getUuid() {
+		return uuid;
 	}
 
 	/**
@@ -234,7 +270,7 @@ public class Employee {
 	/**
 	 * 
 	 * @param role
-	 *            This Employee's system role as a {@link Role} element.
+	 *            This Employee's system role as a {@link #core.Employee.Role} element.
 	 */
 	public void setRole(Role role) {
 		this.role = role;
@@ -274,6 +310,11 @@ public class Employee {
 		return phoneNumbers;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object object) {
 		if (object == null) {
@@ -282,12 +323,17 @@ public class Employee {
 			return false;
 		} else {
 			Employee e = (Employee) object;
-			return getId() == e.getId() && Objects.equals(getCedula(), e.getCedula());
+			return Objects.equals(getUuid(), e.getUuid()) && Objects.equals(getCedula(), e.getCedula());
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId(), getCedula());
+		return Objects.hash(getUuid(), getCedula());
 	}
 }
