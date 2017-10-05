@@ -55,7 +55,7 @@ public class Employee {
 		UNDEFINED
 	};
 
-	private String uuid;
+	private String entityId;
 	private String firstName;
 	private String middleName;
 	private String firstSurname;
@@ -71,7 +71,7 @@ public class Employee {
 	 */
 	public Employee() {
 	}
-	
+
 	/**
 	 * 
 	 * Constructor.
@@ -91,13 +91,14 @@ public class Employee {
 	 * @param email
 	 *            This Employee's e-mail address.
 	 * @param role
-	 *            This Employee's system role as a {@link #core.Employee.Role} element.
+	 *            This Employee's system role as a {@link #core.Employee.Role}
+	 *            element.
 	 * @param phoneNumbers
 	 *            A list of phone numbers associated with this Employee.
 	 */
 	public Employee(String firstName, String middleName, String firstSurname, String secondSurname, String cedula,
 			String email, Role role, List<PhoneNumber> phoneNumbers) {
-		setUuid(null);
+		setEntityId(null);
 		setFirstName(firstName);
 		setMiddleName(middleName);
 		setFirstSurname(firstSurname);
@@ -110,57 +111,23 @@ public class Employee {
 
 	/**
 	 * 
-	 * Constructor.
+	 * Sets the unique ID that identifies this Employee within the service and the
+	 * database. Typically this ID is assigned by the service and is not meant to be
+	 * set or changed by clients.
 	 * 
-	 * @param uuid
-	 *            This Employee's database UUID.
-	 * @param firstName
-	 *            This Employee's first name.
-	 * @param middleName
-	 *            This Employee's middle name.
-	 * @param firstSurname
-	 *            This Employee's first surname, last name, family name or
-	 *            equivalent.
-	 * @param secondSurname
-	 *            This Employee's second surname, last name, family name or
-	 *            equivalent.
-	 * @param cedula
-	 *            This Employee's government issued ID document.
-	 * @param email
-	 *            This Employee's e-mail address.
-	 * @param role
-	 *            This Employee's system role as a {@link #core.Employee.Role} element.
-	 * @param phoneNumbers
-	 *            A list of phone numbers associated with this Employee.
+	 * @param entityId
+	 *            This Employee's Entity ID.
 	 */
-	public Employee(String uuid, String firstName, String middleName, String firstSurname, String secondSurname,
-			String cedula, String email, Role role, List<PhoneNumber> phoneNumbers) {
-		setUuid(uuid);
-		setFirstName(firstName);
-		setMiddleName(middleName);
-		setFirstSurname(firstSurname);
-		setSecondSurname(secondSurname);
-		setCedula(cedula);
-		setEmail(email);
-		setRole(role);
-		setPhoneNumbers(phoneNumbers);
+	public void setEntityId(String entityId) {
+		this.entityId = entityId;
 	}
 
 	/**
 	 * 
-	 * @param uuid
-	 *            This Employee's database UUID.
+	 * @return This Employee's Entity ID.
 	 */
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	/**
-	 * 
-	 * @return This Employee's database UUID.
-	 */
-	public String getUuid() {
-		return uuid;
+	public String getEntityId() {
+		return entityId;
 	}
 
 	/**
@@ -270,7 +237,8 @@ public class Employee {
 	/**
 	 * 
 	 * @param role
-	 *            This Employee's system role as a {@link #core.Employee.Role} element.
+	 *            This Employee's system role as a {@link #core.Employee.Role}
+	 *            element.
 	 */
 	public void setRole(Role role) {
 		this.role = role;
@@ -323,7 +291,7 @@ public class Employee {
 			return false;
 		} else {
 			Employee e = (Employee) object;
-			return Objects.equals(getUuid(), e.getUuid()) && Objects.equals(getCedula(), e.getCedula());
+			return Objects.equals(getCedula(), e.getCedula());
 		}
 	}
 
@@ -334,6 +302,22 @@ public class Employee {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(getUuid(), getCedula());
+		return Objects.hash(getCedula());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String string = String.format("%s,%s,%s,%s,%s,%s,%s,%s", getEntityId(), getFirstName(), getMiddleName(),
+				getFirstSurname(), getSecondSurname(), getCedula(), getEmail(), getRole());
+		for (PhoneNumber p : getPhoneNumbers()) {
+			string += String.format(",%s", p);
+		}
+
+		return string;
 	}
 }

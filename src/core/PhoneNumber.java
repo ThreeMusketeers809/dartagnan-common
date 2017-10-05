@@ -24,7 +24,7 @@ public class PhoneNumber {
 		HOME, WORK, MOBILE, FAX, VOIP, OTHER;
 	};
 
-	private String uuid;
+	private String entityId;
 	private String phoneNumber;
 	private Type type;
 
@@ -32,15 +32,15 @@ public class PhoneNumber {
 	 * Constructor.
 	 */
 	public PhoneNumber() {
-		setUuid(null);
+		setEntityId(null);
 	}
 
 	/**
 	 * 
 	 * Constructor.
 	 * 
-	 * @param uuid
-	 *            This PhoneNumber's database UUID.
+	 * @param entityId
+	 *            This PhoneNumber's Entity ID.
 	 * @param phoneNumber
 	 *            A String representation of the digits composing this PhoneNumber.
 	 * @param type
@@ -48,44 +48,30 @@ public class PhoneNumber {
 	 *            {@link #core.PhoneNumber.Type} element.
 	 */
 	public PhoneNumber(String phoneNumber, Type type) {
-		setUuid(null);
+		setEntityId(null);
 		setPhoneNumber(phoneNumber);
 		setType(type);
 	}
 
 	/**
 	 * 
-	 * Constructor.
+	 * Sets the unique ID that identifies this Employee within the service and the
+	 * database. Typically this ID is assigned by the service and is not meant to be
+	 * set or changed by clients.
 	 * 
-	 * @param uuid
-	 *            This PhoneNumber's database UUID.
-	 * @param phoneNumber
-	 *            A String representation of the digits composing this PhoneNumber.
-	 * @param type
-	 *            The type of PhoneNumber the object represents as a
-	 *            {@link #core.PhoneNumber.Type} element.
+	 * @param entityId
+	 *            This PhoneNumber's Entity ID.
 	 */
-	public PhoneNumber(String uuid, String phoneNumber, Type type) {
-		setUuid(uuid);
-		setPhoneNumber(phoneNumber);
-		setType(type);
+	public void setEntityId(String entityId) {
+		this.entityId = entityId;
 	}
 
 	/**
 	 * 
-	 * @param uuid
-	 *            This PhoneNumber's database UUID.
+	 * @return This PhoneNumber's Entity ID.
 	 */
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	/**
-	 * 
-	 * @return This PhoneNumber's database UUID.
-	 */
-	public String getUuid() {
-		return uuid;
+	public String getEntityId() {
+		return entityId;
 	}
 
 	/**
@@ -108,8 +94,8 @@ public class PhoneNumber {
 	/**
 	 * 
 	 * @param type
-	 *            The type of PhoneNumber the object represents as a {@link #core.PhoneNumber.Type}
-	 *            element.
+	 *            The type of PhoneNumber the object represents as a
+	 *            {@link #core.PhoneNumber.Type} element.
 	 */
 	public void setType(Type type) {
 		this.type = type;
@@ -146,7 +132,7 @@ public class PhoneNumber {
 			return false;
 		} else {
 			PhoneNumber pn = (PhoneNumber) object;
-			return Objects.equals(getUuid(), pn.getUuid()) && Objects.equals(getPhoneNumber(), pn.getPhoneNumber());
+			return Objects.equals(getPhoneNumber(), pn.getPhoneNumber());
 		}
 	}
 
@@ -157,6 +143,18 @@ public class PhoneNumber {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(getUuid(), getPhoneNumber(), getType());
+		return Objects.hash(getPhoneNumber(), getType());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String string = String.format("%s,%s:%s", getEntityId(), getPhoneNumber(), getType());
+
+		return string;
 	}
 }
