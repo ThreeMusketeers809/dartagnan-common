@@ -1,8 +1,13 @@
-package core;
+package core.entities;
 
 import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import core.entities.Entity;
+import core.entities.PhoneNumber;
+import core.entities.Student;
+import util.CedulaValidator;
 
 /**
  * 
@@ -15,7 +20,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-public class Student {
+public class Student extends Entity {
+
+	private static final long serialVersionUID = 7065129196728622066L;
+
 	/**
 	 * 
 	 * Status of the Student within the system.
@@ -25,7 +33,6 @@ public class Student {
 		ACTIVE, INACTIVE, SUSPENDED
 	};
 
-	private String entityId;
 	private String studentId;
 	private String firstName;
 	private String middleName;
@@ -74,7 +81,6 @@ public class Student {
 	 */
 	public Student(String studentId, String firstName, String middleName, String firstSurname, String secondSurname,
 			String cedula, String email, String address, Status status, List<PhoneNumber> phoneNumbers) {
-		setEntityId(null);
 		setStudentId(studentId);
 		setFirstName(firstName);
 		setMiddleName(middleName);
@@ -85,27 +91,6 @@ public class Student {
 		setAddress(address);
 		setStatus(status);
 		setPhoneNumbers(phoneNumbers);
-	}
-
-	/**
-	 * 
-	 * Sets the unique ID that identifies this Student within the service and the
-	 * database. Typically this ID is assigned by the service and is not meant to be
-	 * set or changed by clients.
-	 * 
-	 * @param entityId
-	 *            This Student's Entity ID.
-	 */
-	public void setEntityId(String entityId) {
-		this.entityId = entityId;
-	}
-
-	/**
-	 * 
-	 * @return This Student's Entity ID.
-	 */
-	public String getEntityId() {
-		return entityId;
 	}
 
 	/**
@@ -201,7 +186,11 @@ public class Student {
 	 *            This Student's government issued ID document.
 	 */
 	public void setCedula(String cedula) {
-		this.cedula = cedula;
+		if (CedulaValidator.validate(cedula)) {
+			this.cedula = cedula;
+		} else {
+			throw new IllegalArgumentException("Cedula is invalid.");
+		}
 	}
 
 	/**

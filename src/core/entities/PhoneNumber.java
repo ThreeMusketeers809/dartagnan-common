@@ -1,6 +1,9 @@
-package core;
+package core.entities;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import core.entities.Entity;
+import core.entities.PhoneNumber;
 
 import java.util.Objects;
 
@@ -14,7 +17,9 @@ import java.util.Objects;
  *
  */
 @XmlRootElement
-public class PhoneNumber {
+public class PhoneNumber extends Entity {
+
+	private static final long serialVersionUID = 2861383617641725548L;
 
 	/**
 	 * 
@@ -24,7 +29,6 @@ public class PhoneNumber {
 		HOME, WORK, MOBILE, FAX, VOIP, OTHER;
 	};
 
-	private String entityId;
 	private String phoneNumber;
 	private Type type;
 
@@ -32,7 +36,6 @@ public class PhoneNumber {
 	 * Constructor.
 	 */
 	public PhoneNumber() {
-		setEntityId(null);
 	}
 
 	/**
@@ -48,30 +51,8 @@ public class PhoneNumber {
 	 *            {@link #core.PhoneNumber.Type} element.
 	 */
 	public PhoneNumber(String phoneNumber, Type type) {
-		setEntityId(null);
 		setPhoneNumber(phoneNumber);
 		setType(type);
-	}
-
-	/**
-	 * 
-	 * Sets the unique ID that identifies this Employee within the service and the
-	 * database. Typically this ID is assigned by the service and is not meant to be
-	 * set or changed by clients.
-	 * 
-	 * @param entityId
-	 *            This PhoneNumber's Entity ID.
-	 */
-	public void setEntityId(String entityId) {
-		this.entityId = entityId;
-	}
-
-	/**
-	 * 
-	 * @return This PhoneNumber's Entity ID.
-	 */
-	public String getEntityId() {
-		return entityId;
 	}
 
 	/**

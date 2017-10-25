@@ -1,9 +1,14 @@
-package core;
+package core.entities;
 
 import java.util.List;
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import core.entities.Employee;
+import core.entities.Entity;
+import core.entities.PhoneNumber;
+import util.CedulaValidator;
 
 /**
  * 
@@ -16,7 +21,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  */
 @XmlRootElement
-public class Employee {
+public class Employee extends Entity{
+
+	private static final long serialVersionUID = 6776640286851491940L;
 
 	/**
 	 * 
@@ -55,7 +62,6 @@ public class Employee {
 		UNDEFINED
 	};
 
-	private String entityId;
 	private String firstName;
 	private String middleName;
 	private String firstSurname;
@@ -98,7 +104,6 @@ public class Employee {
 	 */
 	public Employee(String firstName, String middleName, String firstSurname, String secondSurname, String cedula,
 			String email, Role role, List<PhoneNumber> phoneNumbers) {
-		setEntityId(null);
 		setFirstName(firstName);
 		setMiddleName(middleName);
 		setFirstSurname(firstSurname);
@@ -107,27 +112,6 @@ public class Employee {
 		setEmail(email);
 		setRole(role);
 		setPhoneNumbers(phoneNumbers);
-	}
-
-	/**
-	 * 
-	 * Sets the unique ID that identifies this Employee within the service and the
-	 * database. Typically this ID is assigned by the service and is not meant to be
-	 * set or changed by clients.
-	 * 
-	 * @param entityId
-	 *            This Employee's Entity ID.
-	 */
-	public void setEntityId(String entityId) {
-		this.entityId = entityId;
-	}
-
-	/**
-	 * 
-	 * @return This Employee's Entity ID.
-	 */
-	public String getEntityId() {
-		return entityId;
 	}
 
 	/**
@@ -206,7 +190,11 @@ public class Employee {
 	 *            This Employee's government issued ID document.
 	 */
 	public void setCedula(String cedula) {
-		this.cedula = cedula;
+		if (CedulaValidator.validate(cedula)) {
+			this.cedula = cedula;
+		} else {
+			throw new IllegalArgumentException("Cedula is invalid.");
+		}
 	}
 
 	/**

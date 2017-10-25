@@ -1,4 +1,4 @@
-package service;
+package core.service;
 
 import java.util.Comparator;
 import java.util.HashMap;

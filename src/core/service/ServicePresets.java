@@ -1,4 +1,4 @@
-package service;
+package core.service;
 
 import javax.ws.rs.core.MediaType;
 
