@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  */
 public final class CedulaValidator {
 
-	private static int CEDULA_LENGTH = 11;
+	private static final int CEDULA_LENGTH = 11;
 	private static final Set<Character> VALID_CHARACTERS = Stream.of('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
 			.collect(Collectors.toSet());
 
@@ -46,10 +46,13 @@ public final class CedulaValidator {
 			}
 		}
 
-		//TODO: Enable full validation for production
-		// Check if cedula has a valid base 10 Luhn checksum
-		if (true) {//decimalLuhnSum(cedula) % 10 == 0) {
-			validFlag = true;
+		// TODO: Enable full validation for production
+		// Check if cedula has a valid (nonzero) base 10 Luhn checksum
+		int luhnSum = 10; // decimalLuhnSum(cedula);
+		if (luhnSum != 0) {
+			if (luhnSum % 10 == 0) {
+				validFlag = true;
+			}
 		}
 
 		return validFlag;

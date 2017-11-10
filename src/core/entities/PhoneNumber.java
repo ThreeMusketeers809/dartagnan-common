@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import core.entities.Entity;
 import core.entities.PhoneNumber;
+import util.CedulaValidator;
+import util.PhoneNumberValidator;
 
 import java.util.Objects;
 
@@ -61,7 +63,11 @@ public class PhoneNumber extends Entity {
 	 *            A String representation of the digits composing this PhoneNumber.
 	 */
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		if (PhoneNumberValidator.validate(phoneNumber)) {
+			this.phoneNumber = phoneNumber;
+		} else {
+			throw new IllegalArgumentException("Phone Number is invalid.");
+		}
 	}
 
 	/**

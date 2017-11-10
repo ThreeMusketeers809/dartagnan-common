@@ -18,7 +18,7 @@ import core.entities.Period;
  * 
  */
 @XmlRootElement
-public class Period extends Entity{
+public class Period extends Entity {
 
 	private static final long serialVersionUID = 6252893826420779396L;
 
@@ -44,6 +44,13 @@ public class Period extends Entity{
 	private LocalDate endDate;
 	private Status status;
 
+	/**
+	 * 
+	 * Constructor
+	 * 
+	 */
+	public Period() {
+	}
 
 	/**
 	 * @return the name
@@ -103,6 +110,14 @@ public class Period extends Entity{
 	 */
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = Status.valueOf(status);
 	}
 
 	/*
