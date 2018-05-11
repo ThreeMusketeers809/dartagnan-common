@@ -6,9 +6,7 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import core.entities.Employee;
-import core.entities.Entity;
 import core.entities.PhoneNumber;
-import util.CedulaValidator;
 
 /**
  * 
@@ -21,7 +19,7 @@ import util.CedulaValidator;
  * 
  */
 @XmlRootElement
-public class Employee extends Entity{
+public class Employee extends Person {
 
 	private static final long serialVersionUID = 6776640286851491940L;
 
@@ -62,14 +60,7 @@ public class Employee extends Entity{
 		UNDEFINED
 	};
 
-	private String firstName;
-	private String middleName;
-	private String firstSurname;
-	private String secondSurname;
-	private String cedula;
-	private String email;
 	private Role role;
-	private List<PhoneNumber> phoneNumbers;
 
 	/**
 	 * 
@@ -82,16 +73,10 @@ public class Employee extends Entity{
 	 * 
 	 * Constructor.
 	 * 
-	 * @param firstName
-	 *            This Employee's first name.
-	 * @param middleName
-	 *            This Employee's middle name.
-	 * @param firstSurname
-	 *            This Employee's first surname, last name, family name or
-	 *            equivalent.
-	 * @param secondSurname
-	 *            This Employee's second surname, last name, family name or
-	 *            equivalent.
+	 * @param givenName
+	 *            This Employee's given name.
+	 * @param surname
+	 *            This Employee's surname, last name, family name or equivalent.
 	 * @param cedula
 	 *            This Employee's government issued ID document.
 	 * @param email
@@ -102,125 +87,17 @@ public class Employee extends Entity{
 	 * @param phoneNumbers
 	 *            A list of phone numbers associated with this Employee.
 	 */
-	public Employee(String firstName, String middleName, String firstSurname, String secondSurname, String cedula,
-			String email, Role role, List<PhoneNumber> phoneNumbers) {
-		setFirstName(firstName);
-		setMiddleName(middleName);
-		setFirstSurname(firstSurname);
-		setSecondSurname(secondSurname);
+	public Employee(String givenName, String surname, String cedula, String email, Role role,
+			List<PhoneNumber> phoneNumbers) {
+		setGivenName(givenName);
+		setSurname(surname);
 		setCedula(cedula);
 		setEmail(email);
 		setRole(role);
 		setPhoneNumbers(phoneNumbers);
 	}
 
-	/**
-	 * 
-	 * @param firstName
-	 *            This Employee's first name.
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 
-	/**
-	 * 
-	 * @return This Employee's first name.
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
-
-	/**
-	 * 
-	 * @param middleName
-	 *            This Employee's middle name.
-	 */
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
-	/**
-	 * 
-	 * @return This Employee's middle name.
-	 */
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	/**
-	 * 
-	 * @param firstSurname
-	 *            This Employee's first surname, last name, family name or
-	 *            equivalent.
-	 */
-	public void setFirstSurname(String firstSurname) {
-		this.firstSurname = firstSurname;
-	}
-
-	/**
-	 * 
-	 * @return This Employee's first surname, last name, family name or equivalent.
-	 */
-	public String getFirstSurname() {
-		return firstSurname;
-	}
-
-	/**
-	 * 
-	 * @param secondSurname
-	 *            This Employee's second surname, last name, family name or
-	 *            equivalent.
-	 */
-	public void setSecondSurname(String secondSurname) {
-		this.secondSurname = secondSurname;
-	}
-
-	/**
-	 * 
-	 * @return This Employee's second surname, last name, family name or equivalent.
-	 */
-	public String getSecondSurname() {
-		return secondSurname;
-	}
-
-	/**
-	 * 
-	 * @param cedula
-	 *            This Employee's government issued ID document.
-	 */
-	public void setCedula(String cedula) {
-		if (CedulaValidator.validate(cedula)) {
-			this.cedula = cedula;
-		} else {
-			throw new IllegalArgumentException("Cedula is invalid.");
-		}
-	}
-
-	/**
-	 * 
-	 * @return This Employee's government issued ID document.
-	 */
-	public String getCedula() {
-		return cedula;
-	}
-
-	/**
-	 * 
-	 * @param email
-	 *            This Employee's e-mail address.
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * 
-	 * @return This Employee's e-mail address.
-	 */
-	public String getEmail() {
-		return email;
-	}
 
 	/**
 	 * 
@@ -247,23 +124,6 @@ public class Employee extends Entity{
 	 */
 	public Role getRole() {
 		return role;
-	}
-
-	/**
-	 * 
-	 * @param phoneNumbers
-	 *            A list of phone numbers associated with this Employee.
-	 */
-	public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
-		this.phoneNumbers = phoneNumbers;
-	}
-
-	/**
-	 * 
-	 * @return A list of phone numbers associated with this Employee.
-	 */
-	public List<PhoneNumber> getPhoneNumbers() {
-		return phoneNumbers;
 	}
 
 	/*
@@ -300,8 +160,8 @@ public class Employee extends Entity{
 	 */
 	@Override
 	public String toString() {
-		String string = String.format("%s,%s,%s,%s,%s,%s,%s,%s", getEntityId(), getFirstName(), getMiddleName(),
-				getFirstSurname(), getSecondSurname(), getCedula(), getEmail(), getRole());
+		String string = String.format("%s,%s,%s,%s,%s,%s", getEntityId(), getGivenName(), getSurname(),
+				getCedula(), getEmail(), getRole());
 		for (PhoneNumber p : getPhoneNumbers()) {
 			string += String.format(",%s", p);
 		}

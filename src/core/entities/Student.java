@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import core.entities.Entity;
 import core.entities.PhoneNumber;
 import core.entities.Student;
-import util.CedulaValidator;
 
 /**
  * 
@@ -20,7 +18,7 @@ import util.CedulaValidator;
  *
  */
 @XmlRootElement
-public class Student extends Entity {
+public class Student extends Person {
 
 	private static final long serialVersionUID = 7065129196728622066L;
 
@@ -34,15 +32,8 @@ public class Student extends Entity {
 	};
 
 	private String studentId;
-	private String firstName;
-	private String middleName;
-	private String firstSurname;
-	private String secondSurname;
-	private String cedula;
-	private String email;
 	private String address;
 	private Status status;
-	private List<PhoneNumber> phoneNumbers;
 
 	/**
 	 * 
@@ -82,10 +73,8 @@ public class Student extends Entity {
 	public Student(String studentId, String firstName, String middleName, String firstSurname, String secondSurname,
 			String cedula, String email, String address, Status status, List<PhoneNumber> phoneNumbers) {
 		setStudentId(studentId);
-		setFirstName(firstName);
-		setMiddleName(middleName);
-		setFirstSurname(firstSurname);
-		setSecondSurname(secondSurname);
+		setGivenName(firstName);
+		setSurname(firstSurname);
 		setCedula(cedula);
 		setEmail(email);
 		setAddress(address);
@@ -108,114 +97,6 @@ public class Student extends Entity {
 	 */
 	public String getStudentId() {
 		return studentId;
-	}
-
-	/**
-	 * 
-	 * @param firstName
-	 *            This Student's first name.
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	/**
-	 * 
-	 * @return This Student's first name.
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
-
-	/**
-	 * 
-	 * @param middleName
-	 *            This Student's middle name.
-	 */
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
-	/**
-	 * 
-	 * @return This Student's middle name.
-	 */
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	/**
-	 * 
-	 * @param firstSurname
-	 *            This Student's first surname, last name, family name or
-	 *            equivalent.
-	 */
-	public void setFirstSurname(String firstSurname) {
-		this.firstSurname = firstSurname;
-	}
-
-	/**
-	 * 
-	 * @return This Student's first surname, last name, family name or equivalent.
-	 */
-	public String getFirstSurname() {
-		return firstSurname;
-	}
-
-	/**
-	 * 
-	 * @param secondSurname
-	 *            This Student's second surname, last name, family name or
-	 *            equivalent.
-	 */
-	public void setSecondSurname(String secondSurname) {
-		this.secondSurname = secondSurname;
-	}
-
-	/**
-	 * 
-	 * @return This Student's first surname, last name, family name or equivalent.
-	 */
-	public String getSecondSurname() {
-		return secondSurname;
-	}
-
-	/**
-	 * 
-	 * @param cedula
-	 *            This Student's government issued ID document.
-	 */
-	public void setCedula(String cedula) {
-		if (CedulaValidator.validate(cedula)) {
-			this.cedula = cedula;
-		} else {
-			throw new IllegalArgumentException("Cedula is invalid.");
-		}
-	}
-
-	/**
-	 * 
-	 * @return This Student's government issued ID document.
-	 */
-	public String getCedula() {
-		return cedula;
-	}
-
-	/**
-	 * 
-	 * @param email
-	 *            This Student's e-mail address.
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * 
-	 * @return This Student's e-mail address.
-	 */
-	public String getEmail() {
-		return email;
 	}
 
 	/**
@@ -262,23 +143,6 @@ public class Student extends Entity {
 		return status;
 	}
 
-	/**
-	 * 
-	 * @param phoneNumbers
-	 *            A list of phone numbers associated with this Student.
-	 */
-	public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
-		this.phoneNumbers = phoneNumbers;
-	}
-
-	/**
-	 * 
-	 * @return A list of phone numbers associated with this Student.
-	 */
-	public List<PhoneNumber> getPhoneNumbers() {
-		return phoneNumbers;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -313,8 +177,8 @@ public class Student extends Entity {
 	 */
 	@Override
 	public String toString() {
-		String string = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", getEntityId(), getStudentId(), getFirstName(),
-				getMiddleName(), getFirstSurname(), getSecondSurname(), getCedula(), getEmail(), getAddress(),
+		String string = String.format("%s,%s,%s,%s,%s,%s,%s,%s", getEntityId(), getStudentId(), getGivenName(),
+				getSurname(), getCedula(), getEmail(), getAddress(),
 				getStatus());
 		for (PhoneNumber p : getPhoneNumbers()) {
 			string += String.format(",%s", p);

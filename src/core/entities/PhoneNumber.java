@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import core.entities.Entity;
 import core.entities.PhoneNumber;
-import util.CedulaValidator;
 import util.PhoneNumberValidator;
 
 import java.util.Objects;
